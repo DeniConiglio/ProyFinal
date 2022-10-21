@@ -12,83 +12,114 @@ using Microsoft.VisualBasic;
 
 namespace DeniseConiglio_WindowsFinal
 {
-    public partial class Form1 : Form
-    {
-        int sueldo;
-        string Puesto;
-        string Nombre;
-        string Apellido;
-        public Form1()
+    
+        public partial class Form1 : Form
         {
-            InitializeComponent();
-        }
+            int sueldo;
+            string Puesto;
+            string Nombre;
+            string Apellido;
+            string[] dias;
 
-        private void btbValidaciones_Click(object sender, EventArgs e)
-        {
-            sueldo = Convert.ToInt32(txtSueldo.Text);
-            Puesto = Convert.ToString(txtPuesto.Text);
-
-            validaciones(sueldo, Puesto);
-
-        }
-
-        #region mis metodos
-
-        private void validaciones(int sueldo, string Puesto)
-        {
-            if(sueldo>0)
+            public Form1()
             {
-                MessageBox.Show("SUELDO VALIDO");
-                if (Puesto == "desarrollador" || Puesto == "DBA" || Puesto == "soporte tecnico")
+                InitializeComponent();
+            }
+
+            private void btbValidaciones_Click(object sender, EventArgs e)
+            {
+                sueldo = Convert.ToInt32(txtSueldo.Text);
+                Puesto = Convert.ToString(txtPuesto.Text);
+
+                validaciones(sueldo, Puesto);
+
+            }
+
+            #region mis metodos
+
+            private void validaciones(int sueldo, string Puesto)
+            {
+                if(sueldo>0)
                 {
-                    MessageBox.Show("PUESTO VALIDO");
+                    MessageBox.Show("SUELDO VALIDO");
+                    if (Puesto == "desarrollador" || Puesto == "DBA" || Puesto == "soporte tecnico")
+                    {
+                        MessageBox.Show("PUESTO VALIDO");
+                    }
+                    else
+                    {
+                        MessageBox.Show("PUESTO INVALIDO");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("PUESTO INVALIDO");
+                    MessageBox.Show("SUELDO INVALIDO");
                 }
+
+            
+
+            
             }
-            else
+            #endregion
+
+            private void btbMostrar_Click(object sender, EventArgs e)
             {
-                MessageBox.Show("SUELDO INVALIDO");
+                Nombre = Convert.ToString(txtNombre.Text);
+                Apellido = Convert.ToString(txtApellido.Text);
+                Puesto = Convert.ToString(txtPuesto.Text);
+
+                MessageBox.Show(Nombre.ToUpper() + " " +Apellido.ToUpper() + " "+ Puesto.ToUpper());
+
             }
 
-            
+            private void btbIngresarHoras_Click(object sender, EventArgs e)
+            {
+                int hsLun = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia lunes"));
+                int hsMar = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia martes"));
+                int hsMie = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia miercoles"));
+                int hsJue = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia jueves"));
+                int hsVie = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia viernes"));
 
-            
-        }
-        #endregion
+                int totalHs = hsLun + hsMar + hsMie + hsJue + hsVie;
 
-        private void btbMostrar_Click(object sender, EventArgs e)
-        {
-            Nombre = Convert.ToString(txtNombre.Text);
-            Apellido = Convert.ToString(txtApellido.Text);
-            Puesto = Convert.ToString(txtPuesto.Text);
+                MessageBox.Show("Total de horas trabajadas: " + totalHs);
 
-            MessageBox.Show(Nombre.ToUpper() + " " +Apellido.ToUpper() + " "+ Puesto.ToUpper());
+                int promedioHs = totalHs / 5;
 
-        }
+                MessageBox.Show("Promedio de horas trabajadas: " + promedioHs);
 
-        private void btbIngresarHoras_Click(object sender, EventArgs e)
-        {
-            int hsLun = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia lunes"));
-            int hsMar = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia martes"));
-            int hsMie = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia miercoles"));
-            int hsJue = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia jueves"));
-            int hsVie = Convert.ToInt32(Interaction.InputBox("Ingrese las horas del dia viernes"));
+                dias = new string[5];
 
-            int totalHs = hsLun + hsMar + hsMie + hsJue + hsVie;
+                if(hsLun<4)
+                {
+                dias[0] = "lunes, ";
+                }
+                if (hsMar < 4)
+                {
+                    dias[1] = "martes, ";
+                }
+                if (hsMie < 4)
+                {
+                    dias[2] = "miercoles, ";
+                }
+                if (hsJue < 4)
+                {
+                    dias[3] = "jueves, ";
+                }
+                if (hsVie < 4)
+                {
+                    dias[4] = "viernes, ";
+                }
 
-            MessageBox.Show("Total de horas trabajadas: " + totalHs);
+                
+                MessageBox.Show("Dias trabajando menos de 4hs: " + dias[0]+ dias[1]+ dias[2]+ dias[3]+ dias[4]);
+                
+                
+                
+                
+                
 
-            int promedioHs = totalHs / 5;
-
-            MessageBox.Show("Promedio de horas trabajadas: " + promedioHs);
-
-            
-
-        }
-
+            }
         
-    }
+        }
 }
